@@ -1,0 +1,141 @@
+.main_hadding{
+  @apply text-4xl md:text-3xl lg:text-5xl font-roboto font-bold text-primary
+}
+.pera{
+  @apply text-sm font-Poppins font-normal  
+}
+input{
+  @apply w-full !p-3 border border-third outline-none rounded
+}
+.click_effect{
+  @apply transform active:scale-[1.03]
+}
+/* common css end */
+/* buttons css start */
+.button_v_1{
+  @apply  px-3 py-2 text-center text-xl hover:text-secondary rounded-lg bg-primary hover:bg-third border hover:border-primary
+}
+.button_v_2{
+  @apply  px-2 py-1 text-center text-[14px] font-roboto font-medium hover:text-secondary rounded-lg bg-primary hover:bg-third border hover:border-primary transform active:scale-[1.02]
+}
+.button_v_3{
+  @apply  px-2 py-1 text-center text-[14px] font-roboto font-medium hover:text-secondary rounded-lg bg-red-500 hover:bg-third border hover:border-red-500 transform active:scale-[1.02]
+}
+.button_v_4{
+  @apply  px-2 py-1 text-center text-[14px] font-roboto font-medium text-secondary rounded-lg bg-indigo-500 hover:bg-third border hover:border-indigo-500 transform active:scale-[1.02]
+}
+/* buttons css end */
+/* Login css start */
+#log_in{
+  @apply h-screen flex justify-center items-center
+}
+#log_in .main{
+  @apply container flex justify-between items-center flex-wrap mt-5 mx-auto lg:p-10
+}
+#log_in .left{
+  @apply w-full md:w-[40%] lg:w-[30%]  mx-auto
+}
+#log_in .left h2{
+  @apply text-center md:text-left
+}
+#log_in .right{
+  @apply w-full md:w-[50%] 
+}
+#log_in input{
+  @apply mb-2
+}
+/* Login css End */
+/* Ragistration css start */
+#registration{
+  @apply flex items-center
+}
+#registration .main{
+  @apply container  p-2 flex flex-wrap-reverse justify-between items-center md:flex-wrap mt-5
+}
+#registration .main .left{
+  @apply w-full md:w-[50%]
+}
+#registration .main .right{
+  @apply w-full md:w-[30%] lg:w-[35%] mx-auto
+}
+#registration input{
+  @apply mb-4
+}
+/* Ragistration css End */
+/* header css start */
+#header{
+  @apply bg-primary
+}
+#header .main{
+  @apply container h-[70px] md:h-[100px] flex flex-wrap justify-between items-center px-2 md:px-10 
+}
+#header .main .left{
+  @apply w-[85%] md:w-[70%] 
+}
+#header .main .left ul{
+  @apply flex md:justify-between gap-[65px] md:gap-[100px] lg:gap-[100px]
+}
+#header .main .left ul li a{
+  @apply text-2xl md:text-3xl text-fourth hover:text-secondary
+}
+#header .main .right{
+  @apply w-[15%] md:w-[30%] h-full  flex justify-end items-center
+}
+#header .main .right .profile_img {
+  @apply w-[50px] md:w-[65px] h-[50px] md:h-[65px] overflow-hidden rounded-full flex justify-center items-center relative
+}
+#header .main .right .profile_img .hover_image{
+  /* transition: .4s; */
+  @apply hidden w-full h-full bg-fourth absolute justify-center items-center opacity-80
+}
+#header .main .right .profile_img:hover .hover_image{
+  @apply flex
+}
+#header .profile_image_modal{
+  @apply w-screen h-screen bg-primary fixed top-0 left-0 z-[9999] flex justify-center items-center
+}
+#header .profile_image_modal .modal{
+  @apply bg-secondary p-5 rounded w-[600px]
+}
+#header .profile_image_modal .modal .img-preview{
+  @apply  bg-primary 
+}
+#header .profile_image_modal .modal .buttons{
+  @apply flex justify-center items-center gap-5
+}
+/* header css end */
+/* Home css start */
+#home .main{
+  @apply flex justify-between flex-wrap px-2 md:px-10
+}
+#home .main .item{
+  @apply w-full md:w-[48%] lg:w-[32%] bg-fourth mt-5
+}
+/* Home css end */
+/* user_list css start */
+.list{
+  @apply p-5
+}
+.list .list_header{
+  @apply flex justify-between items-center py-2
+}
+.list .list_items{
+  @apply w-full h-[400px] overflow-y-scroll
+}
+.list .list_items .item{
+  @apply !w-full flex justify-between items-center flex-wrap bg-green-500 
+  outline-secondary outline outline-1 p-1
+}
+.list .item .dtls .profile_img{
+  @apply w-[70px] h-[70px] rounded-full overflow-hidden bg-indigo-600
+}
+.list .item .dtls .profile_img img{
+  @apply w-[80px] h-[80px] object-cover
+}
+.list .item .dtls{
+ @apply flex items-center gap-10 md:gap-2 
+}
+.list .item .buttons{
+ @apply flex gap-1 p-2
+}
+/* User_List css end */
