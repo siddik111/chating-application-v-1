@@ -23,28 +23,29 @@ const FriendList = () => {
     // get data from Database end
     // send block data to Database start
     const handleBlockList =(listItem)=>{
-        console.log(listItem);
+        // console.log(listItem);
         if(data.uid == listItem.receverId){
             set(push(ref(db, "blockList")),{
                 blockID:listItem.senderId,
                 blockName:listItem.senderName,
-                blockBYId:listItem.receverId,
-                blockBYNamme:listItem.receverName,
+                blockById:listItem.receverId,
+                blockByName:listItem.receverName,
             }).then( ()=>{
                 remove(ref(db, "frinds/" + listItem.id))
-                console.log(listItem.id);
+                // console.log(listItem.id);
+            }).catch ((error)=>{
+                console.log(error);
             })
         }else{
             set(push(ref(db, "blockList")),{
                 blockID:listItem.receverId,
                 blockName:listItem.receverName,
-                blockBYId:listItem.senderId,
-                blockBYNamme:listItem.senderName,
+                blockById:listItem.senderId,
+                blockByName:listItem.senderName,
             }).then( ()=>{
                 remove(ref(db, "frinds/" + listItem.id))
-                console.log(listItem.id);
-            })
-            .catch ((error)=>{
+                // console.log(listItem.id);
+            }).catch ((error)=>{
                 console.log(error);
             })
         }

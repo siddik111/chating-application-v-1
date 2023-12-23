@@ -67,7 +67,7 @@ const LogIn = () => {
     };
     // input value submit end
     
-    console.log(email,password)
+    // console.log(email,password)
     return (
         <div id="log_in">
             <div className="main p-1">

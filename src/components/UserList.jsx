@@ -64,6 +64,11 @@ const UserList = () => {
     // console.log(friendList)
     // friends List start
     // friends List end
+    // get data from blockList start
+    useEffect( ()=>{
+
+    },[])
+    // get data from blockList end
     return (
         <div className="list">
             <div className="list_header">
