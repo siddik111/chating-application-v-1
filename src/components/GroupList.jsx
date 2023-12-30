@@ -9,6 +9,7 @@ const GroupList = () => {
     const db =getDatabase();
     const data = useSelector( (state) => state.userloginInfo.userInfo);
     const [gropList, setGroupList] = useState([]);
+    const [gropJoinReqList, setGroupJoinReqList] = useState([]);
     const [groupFullName, setGrooupFullName]= useState("");
     const [groupTagName, setGrooupTagName]= useState("");
     const [fullNameError, setFullNameError] =useState("");
@@ -63,8 +64,34 @@ const GroupList = () => {
             setGroupList(groups);
         })
     },[]);
-    console.log(gropList);
     // get dataFrom Database end
+    // create group request database colection start
+    const handleJoinRequest=(item)=>{
+        set(push(ref(db, "groupJoinRequest")),{
+            groupName: item.groupName,
+            adminName: item.adminName,
+            groupId: item.id,
+            groupTagName: item.groupTagName,
+            requestByName: data.displayName,
+            requstById: data.uid,
+            requestByEmail: data.email
+        })
+    }
+    // create group request database colection end
+    // get data from database groupList Member colaction start
+    useEffect( ()=>{
+        const groupreqRef =ref(db, "groupJoinRequest")
+        onValue(groupreqRef, (snapshort)=>{
+            let memberList = []
+            snapshort.forEach( (joinList)=>{
+                memberList.push({...joinList.val(), id: joinList.key})
+            })
+            setGroupJoinReqList(memberList)
+        })
+    },[])
+    console.log(gropJoinReqList);
+    // get data from database groupList Member colaction end
+    
     return (
         <div className="list">
             <div className="list_header">
@@ -80,7 +107,11 @@ const GroupList = () => {
             <div className="list_items">
                 {
                     !show ?
-                    <div>
+                    (   
+                        gropList.length == 0?
+                        <h1>no Groups............</h1>
+                        :
+                        <div>
                         {
                             gropList.map( (item, i)=>{
                                 return(
@@ -98,13 +129,14 @@ const GroupList = () => {
                                         </div>
                                     </div>
                                     <div className="buttons">
-                                        <button className="button_v_4">Join</button>
+                                        <button onClick={()=> handleJoinRequest(item)} className="button_v_4">Join</button>
                                     </div>    
                                     </div>
                                 )
                             })
                         }
-                    </div>
+                        </div>
+                    )
                     :
                     <div className="h-screen text-center p-10">
                         <form onSubmit={ handleGroupSubmit } action="#">

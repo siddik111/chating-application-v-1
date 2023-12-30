@@ -58,7 +58,11 @@ const BlockList = () => {
                 <h2 className="text-secondary font-bold">Block User : <span>{blockList.length}</span></h2>
                 <BsThreeDotsVertical className="text-secondary"></BsThreeDotsVertical>
             </div>
-            <div className="list_items">
+            {
+                blockList.length == 0?
+                <h3 className="text-secondary lowercase">no block User.......</h3>
+                :
+                <div className="list_items">
                 {
                     blockList.map( (item, i)=>{
                         return(
@@ -93,6 +97,7 @@ const BlockList = () => {
                     })
                 }
             </div>
+            }
         </div>
     );
 };

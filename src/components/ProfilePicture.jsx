@@ -12,7 +12,7 @@ const ProfilePicture = ({item}) => {
             setImage(url)
         ])
         .catch((error) =>{
-            // console.log(error)
+            console.log(error)
         })
     },[]);
     // console.log(image)
