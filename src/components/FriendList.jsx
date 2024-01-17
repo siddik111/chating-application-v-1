@@ -1,12 +1,14 @@
-import { Database, getDatabase, onValue, push, ref, remove, set } from "firebase/database";
+import { getDatabase, onValue, push, ref, remove, set } from "firebase/database";
 import { useEffect, useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ProfilePictureFrindRequest from "./ProfilePictureFrindRequest";
+import { activeChat } from "../slices/activeChatSlice";
 const FriendList = () => {
     const db =getDatabase()
     const data = useSelector( (state) => state.userloginInfo.userInfo);
     const [friendList, setFriendList] =useState([]);
+    const dispach =useDispatch();
     // get data from Database friend
     useEffect( ()=>{
         const friendListRef = ref(db, "frinds")
@@ -51,8 +53,19 @@ const FriendList = () => {
         }
     }
     // send block data to Database end
+    // send active friend info start 
+    const handleSendInfo = (item)=>{
+        if(item.receverId == data.uid){
+            dispach(activeChat({status:'single', id: item.senderId, displayName: item.senderName}))
+            localStorage.setItem("activeFriend", JSON.stringify({status:'single', id: item.senderId, displayName: item.senderName}))
+        }else{
+            dispach(activeChat({status: 'single', id: item.receverId, displayName: item.receverName}))
+            localStorage.setItem("activeFriend", JSON.stringify({status: 'single', id: item.receverId, displayName: item.receverName}))
+        }
+    }
+    // send active friend info end 
 
-    // console.log(friendList);
+
     return (
         <div className="list">
             <div className="list_header">
@@ -64,7 +77,7 @@ const FriendList = () => {
                     friendList.map((item, i)=>{
                         return(
 
-                        <div key={i} className="item">
+                        <div onClick={()=> handleSendInfo(item)} key={i} className="item">
                             <div className="dtls">
                                 <div className="profile_img">
                                     {/* <img src="../../public/profile_img.png" alt="#" /> */}

@@ -40,7 +40,7 @@ const UserList = () => {
         onValue( friendRequestRef, (snapshot) => {
             let friendRequest = []
             snapshot.forEach((item) =>{
-                friendRequest.push(item.val().receverId + item.val().senderId)           
+                friendRequest.push(item.val().receverId + item.val().senderId )           
             })
             setFriendRequestList(friendRequest)            
         })
@@ -61,14 +61,8 @@ const UserList = () => {
             setFriendList(friends)
         })
     },[])
-    // console.log(friendList)
     // friends List start
     // friends List end
-    // get data from blockList start
-    useEffect( ()=>{
-
-    },[])
-    // get data from blockList end
     return (
         <div className="list">
             <div className="list_header">
@@ -100,7 +94,7 @@ const UserList = () => {
                             {
                                 friendRequestList.includes(item.id + data.uid) || friendRequestList.includes(data.uid + item.id)?
                                 // <button  className="button_v_2">Requst end</button>
-                                <button onClick={()=> handleRemoveFrindRequest(req)} className="button_v_2">cancle</button>
+                                <button onClick={ ()=> handleRemoveFrindRequest(item)} className="button_v_2">cancle</button>
                                 :
                                 <button onClick={ () =>handaleFrindReques(item)} className="button_v_2">Add friend</button>
                             }

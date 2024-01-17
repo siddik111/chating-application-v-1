@@ -84,7 +84,9 @@ const GroupList = () => {
         onValue(groupreqRef, (snapshort)=>{
             let memberList = []
             snapshort.forEach( (joinList)=>{
-                memberList.push({...joinList.val(), id: joinList.key})
+                if(joinList.val().requstById== data.uid){
+                    memberList.push( {...joinList.val() , id: joinList.key})
+                }
             })
             setGroupJoinReqList(memberList)
         })
@@ -100,7 +102,7 @@ const GroupList = () => {
                     show ?
                     <button onClick={()=> {setShow(!show), setLoading(false)}} className="button_v_3 !text-[12px]">Cancle</button>
                     :
-                    <button onClick={()=> setShow(!show)} className="button_v_2 !text-[12px]">Create</button>
+                    <button onClick={()=> setShow(!show)} className="button_v_2 !text-[12px]">Create Group</button>
                 }
                 {/* <BsThreeDotsVertical className="text-secondary"></BsThreeDotsVertical> */}
             </div>
@@ -109,7 +111,7 @@ const GroupList = () => {
                     !show ?
                     (   
                         gropList.length == 0?
-                        <h1>no Groups............</h1>
+                        <h1 className="text-secondary lowercase">no Groups............</h1>
                         :
                         <div>
                         {
@@ -129,7 +131,18 @@ const GroupList = () => {
                                         </div>
                                     </div>
                                     <div className="buttons">
-                                        <button onClick={()=> handleJoinRequest(item)} className="button_v_4">Join</button>
+                                        {
+                                            // gropJoinReqList.includes(gropJoinReqList.groupId+data.uid)?
+                                            // gropJoinReqList.includes(gropJoinReqList.adminName == data.uid)?
+                                            // gropJoinReqList.map( (item)=>{
+                                            //     return(
+                                            //         if()
+                                            //     )
+                                            // })
+                                            // <button  className="button_v_4">Cencle</button>
+                                            // :
+                                            <button onClick={()=> handleJoinRequest(item)} className="button_v_4">Join</button>
+                                        }
                                     </div>    
                                     </div>
                                 )

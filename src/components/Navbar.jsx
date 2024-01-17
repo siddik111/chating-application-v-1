@@ -11,7 +11,7 @@ import "cropperjs/dist/cropper.css";
 import { getDownloadURL, getStorage, ref, uploadString } from "firebase/storage";
 import { getAuth, signOut, updateProfile } from "firebase/auth";
 import { userLoginInfo } from "../slices/userSlice";
-import { useNavigate, NavLink } from "react-router-dom";
+import { useNavigate, NavLink, Link } from "react-router-dom";
 import { getDatabase, set } from "firebase/database";
 // import { getAuth, signOut } from "firebase/auth";
 
@@ -100,10 +100,10 @@ const Navbar = () => {
                         </li>
                         <ul>
                             <li>
-                                <NavLink to="" href="#"><IoHomeOutline></IoHomeOutline></NavLink>
+                                <NavLink to="/home" href="#"><IoHomeOutline></IoHomeOutline></NavLink>
                             </li>
                             <li>
-                                <NavLink to="" href="#"><AiOutlineMessage ></AiOutlineMessage></NavLink>
+                                <NavLink to="/chat" href="#"><AiOutlineMessage ></AiOutlineMessage></NavLink>
                             </li>
                             <li>
                                 <NavLink to="" ><IoMdNotificationsOutline ></IoMdNotificationsOutline></NavLink>

@@ -112,6 +112,11 @@ input{
   @apply w-full md:w-[48%] lg:w-[32%] bg-fourth mt-5
 }
 /* Home css end */
+/* Home css start */
+#chat .item{
+  @apply  bg-fourth mt-5
+}
+/* Home css end */
 /* user_list css start */
 .list{
   @apply p-5

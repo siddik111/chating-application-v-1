@@ -1,10 +1,11 @@
 import { getDatabase, onValue, push, ref, remove, set } from "firebase/database";
 import { useEffect, useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const MyGroupList = () => {
     const db =getDatabase();
+    const dispach =useDispatch();
     const data = useSelector( (state) => state.userloginInfo.userInfo);
     const [myGroupList, setMyGroupList] = useState([]);
     const [joinReqList, setJoinReqLIst] = useState([]);
@@ -42,6 +43,11 @@ const MyGroupList = () => {
         }
         // console.log(joinReqList);
     // get data from database end
+    // handleRemove join Req start
+    const handleRemoveJoinReq = (item)=>{
+        remove(ref(db, "groupJoinRequest/" +item.id));
+    };
+    // handleRemove join Req end
     // create grpupmember coloction start
     const handleacceptJoinReq = (item)=>{
         set(push(ref(db, "groupMember")),{
@@ -65,14 +71,36 @@ const MyGroupList = () => {
         onValue(groupInfoRef,(snapshort)=>{
             let groupMemberList = []
             snapshort.forEach( (groupInf)=>{
-                if(data.uid == groupInf.val().adminId && groupInf.val().groupId == item.groupId){
+                if(data.uid == groupInf.val().adminId && groupInf.val().groupId == item.id){
                     groupMemberList.push({...groupInf.val(), id: groupInf.key})
                 }
             })
             setGroupInfoList(groupMemberList);
+            console.log(item);
         })
     }
     // get data from database group info end
+    // remove Mygroup data start
+    const handleRemoveGroup =(item)=>{
+        if(data.uid == item.adminName){
+            remove(ref(db, "groups/" + item.id))
+        }
+        console.log(item);
+    };
+    // remove Mygroup data end
+    // remove  group member start
+    const handleRemoveMember =(item)=>{
+        if(data.uid == item.adminName){
+            remove(ref(db, "groupMember/" +item.id))
+        }
+    }
+    // remove  group member end
+    // handleGroupMsg start 
+    const handleSendInfo = (item)=>{
+        console.log(item);
+    }
+    // handleGroupMsg end
+    
 
     return (
         <div className="list">
@@ -95,13 +123,12 @@ const MyGroupList = () => {
                 <div className="list_items">
                     <h4 className="text-secondary text-center underline">Join Request List</h4>
                     {
-
                         joinReqList.length == 0?
                         <h4 className="text-secondary">no members.........</h4>
                         :
                         joinReqList.map( (item, i)=>{
                             return(
-                                <div key={i} className="item flex justify-between w-full">
+                                <div  key={i} className="item flex justify-between w-full">
                                     <div className="dtls">
                                         <div className="profile_img">
                                             <img src="../../public/profile_img.png" alt="#" />
@@ -115,7 +142,7 @@ const MyGroupList = () => {
                                     </div>
                                     <div className="buttons">
                                         <button onClick={()=> handleacceptJoinReq(item)} className="button_v_2 text-[10px]">Accept</button>
-                                        <button className="button_v_3 text-[10px]">Delete</button>
+                                        <button onClick={ ()=> handleRemoveJoinReq(item)}  className="button_v_3 text-[10px]">Delete</button>
                                     </div>    
                                 </div>
                                 )
@@ -128,7 +155,10 @@ const MyGroupList = () => {
                     <div className="list_items">
                     <h4 className="text-secondary text-center underline">Group Member List</h4>
                     {
-                        groupInfoList.map( (groupinfo, i)=>{
+                        groupInfoList.length ==0?
+                        <h4 className="text-secondary lowercase ">No Member......</h4>
+                        :
+                        groupInfoList.map( (item, i)=>{
                             return(
                                 <div key={i} className="item flex justify-between w-full">
                                     <div className="dtls">
@@ -137,13 +167,13 @@ const MyGroupList = () => {
                                         </div>
                                         <div className="text">
                                             <div>
-                                                <h3 className="text-[16px] text-secondary font-medium font-roboto capitalize">{groupinfo.memberName}</h3>
-                                                <p className="text-secondary text-[11px]">{groupinfo.memberEmail}</p>
+                                                <h3 className="text-[16px] text-secondary font-medium font-roboto capitalize">{item.memberName}</h3>
+                                                <p className="text-secondary text-[11px]">{item.memberEmail}</p>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="buttons">
-                                        <button className="button_v_3 text-[14px]">Ban</button>
+                                        <button onClick={ ()=>handleRemoveMember(item)} className="button_v_3 text-[14px]">Ban</button>
                                     </div>    
                                 </div>
                             )
@@ -158,7 +188,7 @@ const MyGroupList = () => {
                     :
                     myGroupList.map( (item, i)=>{
                         return(
-                                <div key={i} className="item">
+                                <div onClick={()=> handleSendInfo(item)} key={i} className="item">
                                     <div className="dtls">
                                         <div className="profile_img">
                                             <img src="../../public/profile_img.png" alt="#" />
@@ -173,7 +203,7 @@ const MyGroupList = () => {
                                     <div className="buttons">
                                         <button onClick={ ()=> handlegroupInfo(item)} className="button_v_2 text-[10px]">Info</button>
                                         <button onClick={()=> handleGroupRequest(item)} className="button_v_4 text-[10px]">Request</button>
-                                        <button className="button_v_3 text-[10px]">Delete</button>
+                                        <button onClick={ ()=> handleRemoveGroup(item)} className="button_v_3 text-[10px]">Delete</button>
                                     </div>    
                                 </div>
                         )
